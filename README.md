@@ -12,4 +12,4 @@ Worked with Facebook SDK and GoogleSignIn SDK to allow user to get authenticatio
 <br>
 <img src="https://github.com/Lei1025/SocialLogin/blob/master/Success%20with%20Facebook.png" width="300">
 <br>
-<img src="https://github.com/Lei1025/SocialLogin/blob/master/Firebase%20back%20end.png" width="300">
+<img src="https://github.com/Lei1025/SocialLogin/blob/master/Firebase%20back%20end.png" hight="50">
