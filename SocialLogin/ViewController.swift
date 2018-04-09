@@ -9,12 +9,19 @@
 import UIKit
 import FBSDKLoginKit
 import Firebase
+import GoogleSignIn
 
-class ViewController: UIViewController, FBSDKLoginButtonDelegate {
+class ViewController: UIViewController, FBSDKLoginButtonDelegate, GIDSignInUIDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupFacebookButton()
+        setupGoogleButton()
+        }
+    
+    private func setupFacebookButton(){
+        //Facebook login
         let loginButton = FBSDKLoginButton()
         view.addSubview(loginButton)
         loginButton.frame = CGRect(x: 16, y: 50, width: view.frame.width - 32, height: 50)
@@ -34,6 +41,24 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         customFBButton.addTarget(self, action: #selector(handleCustomFBLogin), for: .touchUpInside)
     }
     
+    private func setupGoogleButton(){
+        //Google Login
+        let googleButton = GIDSignInButton()
+        googleButton.frame = CGRect(x: 16, y: 116 + 66, width: view.frame.width - 32, height: 50)
+        view.addSubview(googleButton)
+        
+        let customButton = UIButton(type: .system)
+        customButton.frame = CGRect(x: 16, y: 116 + 66 + 66, width: view.frame.width - 32, height: 50)
+        customButton.backgroundColor = .orange
+        customButton.setTitle("Custom Google Sign In", for: .normal)
+        customButton.addTarget(self, action: #selector(handleCustomGoogleSign), for: .touchUpInside)
+        customButton.setTitleColor(.white, for: .normal)
+        customButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        view.addSubview(customButton)
+        
+        GIDSignIn.sharedInstance().uiDelegate = self
+    }
+    
     @objc func handleCustomFBLogin() {
         
         FBSDKLoginManager().logIn(withReadPermissions: ["email"], from: self) { (result, err) in
@@ -44,6 +69,10 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             
             self.showEmailAddress()
         }
+    }
+    
+    @objc func handleCustomGoogleSign() {
+        GIDSignIn.sharedInstance().signIn()
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
@@ -83,6 +112,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
