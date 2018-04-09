@@ -50,8 +50,8 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate, GIDSignInUIDel
         let customButton = UIButton(type: .system)
         customButton.frame = CGRect(x: 16, y: 116 + 66 + 66, width: view.frame.width - 32, height: 50)
         customButton.backgroundColor = .orange
-        customButton.setTitle("Custom Google Sign In", for: .normal)
-        customButton.addTarget(self, action: #selector(handleCustomGoogleSign), for: .touchUpInside)
+        customButton.setTitle("Custom Google Sign Out", for: .normal)
+        customButton.addTarget(self, action: #selector(handleCustomGoogleSignout), for: .touchUpInside)
         customButton.setTitleColor(.white, for: .normal)
         customButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         view.addSubview(customButton)
@@ -71,8 +71,8 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate, GIDSignInUIDel
         }
     }
     
-    @objc func handleCustomGoogleSign() {
-        GIDSignIn.sharedInstance().signIn()
+    @objc func handleCustomGoogleSignout() {
+        GIDSignIn.sharedInstance().signOut()
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
